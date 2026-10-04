@@ -117,8 +117,16 @@ def board_is_full(board):
     # TODO: return True when no column has an empty slot left
     return len(valid_moves(board)) == 0
 
-# Step 12 - is_terminal (not yet solved)
-# TODO: implement
+# Step 12 - is_terminal
+def is_terminal(board):
+    # TODO: return (done, winner) using check_winner and board_is_full.
+    winner = int(check_winner(board))
+
+    if winner != 0:
+        return True, winner
+    if board_is_full(board):
+        return True, 0
+    return False,0
 
 # Step 13 - other_player (not yet solved)
 # TODO: implement
