@@ -115,7 +115,7 @@ def check_winner(board):
 # Step 11 - board_is_full
 def board_is_full(board):
     # TODO: return True when no column has an empty slot left
-    return not valid_moves(board)
+    return len(valid_moves(board)) == 0
 
 # Step 12 - is_terminal (not yet solved)
 # TODO: implement
