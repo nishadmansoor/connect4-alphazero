@@ -54,7 +54,7 @@ def valid_moves(board):
     space = []
 
     for col in range(7):
-        if column_full(board,col) is False:
+        if board[0,col] == 0:
             space.append(col)
     return space
 
@@ -112,8 +112,10 @@ def check_winner(board):
             return winner
     return 0
 
-# Step 11 - board_is_full (not yet solved)
-# TODO: implement
+# Step 11 - board_is_full
+def board_is_full(board):
+    # TODO: return True when no column has an empty slot left
+    return not valid_moves(board)
 
 # Step 12 - is_terminal (not yet solved)
 # TODO: implement
