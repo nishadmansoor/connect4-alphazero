@@ -471,8 +471,25 @@ def visit_count_policy(root, temperature=1.0):
     
     return [c / sum_temp for c in counts_temp]
 
-# Step 38 - mcts_choose_action (not yet solved)
-# TODO: implement
+# Step 38 - mcts_choose_action
+def mcts_choose_action(state, to_play, net, num_simulations, c_puct, temperature=1.0):
+    root = run_mcts(state, to_play, net, num_simulations, c_puct)
+    policy = visit_count_policy(root, temperature)
+    
+    if not isinstance(policy, torch.Tensor):
+        policy_tensor = torch.tensor(policy, dtype=torch.float32)
+    else:
+        policy_tensor = policy
+        
+    mask = action_mask(state)
+    action = sample_action_from_policy(policy_tensor, mask)
+
+    if isinstance(policy, torch.Tensor):
+        policy = policy.cpu().numpy()
+    elif not hasattr(policy, 'shape'):
+        policy = np.array(policy, dtype=np.float32)
+        
+    return int(action), policy
 
 # Step 39 - record_self_play_step (not yet solved)
 # TODO: implement
