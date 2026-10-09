@@ -503,8 +503,19 @@ def record_self_play_step(history, board, policy, to_play):
     history.append(step_data)
     return history
 
-# Step 40 - play_self_play_game (not yet solved)
-# TODO: implement
+# Step 40 - play_self_play_game
+def play_self_play_game(net, num_simulations, c_puct, temperature=1.0):
+    board = make_empty_board()
+    to_play = 1
+    history = []
+
+    while True:
+        action, policy = mcts_choose_action(board, to_play, net, num_simulations, c_puct, temperature)
+        policy = np.asarray(policy, dtype=np.float64)
+        record_self_play_step(history, board, policy, to_play)
+        board, done, winner, to_play = step_env(board, action, to_play)
+        if done:
+            return history, winner
 
 # Step 41 - assign_value_targets (not yet solved)
 # TODO: implement
